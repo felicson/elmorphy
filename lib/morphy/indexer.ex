@@ -7,7 +7,7 @@ defmodule Morphy.Indexer do
   def index(string, opts) do
     data = Morphy.query(string, opts)
     len = length(data) 
-    data |>Enum.map fn (x) -> gen_struct(x,len) end
+    data |> Enum.map fn (x) -> gen_struct(x,len) end
   end
 
   def index(string) do

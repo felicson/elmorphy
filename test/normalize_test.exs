@@ -4,6 +4,11 @@ defmodule Morphy.NormalizeTest do
 
   doctest Morphy.Normalize
 
+  setup context do
+    {:ok, morphy} = Morphy.Worker.start_link(context.test)
+    {:ok, morphy: morphy}
+  end
+
   import Morphy.Normalize
 
   test "get only uniq wordforms" do

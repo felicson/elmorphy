@@ -5,6 +5,10 @@ defmodule Morphy.IndexerTest do
   doctest Morphy.Indexer
 
   use Morphy.Indexer
+  setup context do
+    {:ok, morphy} = Morphy.Worker.start_link(context.test)
+    {:ok, morphy: morphy}
+  end
 
   test "get index data for storage with options" do
 

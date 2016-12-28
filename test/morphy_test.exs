@@ -3,6 +3,11 @@ defmodule MorphyTest do
   use ExUnit.Case, async: true
   doctest Morphy
   #
+  #
+  setup context do
+    {:ok, morphy} = Morphy.Worker.start_link(context.test)
+    {:ok, morphy: morphy}
+  end
 
   test "prepare query" do
     assert "продам слона" == Morphy.prepare_string("Продам слона")
