@@ -8,7 +8,7 @@ defmodule Morphy.Worker do
     GenServer.start_link(__MODULE__, :ok, name: name)
   end
 
-  def init(state) do
+  def init(_state) do
 
     host = Application.get_env(:morphy, :host)
     port = Application.get_env(:morphy, :port)
@@ -18,7 +18,7 @@ defmodule Morphy.Worker do
   end
 
   def command(pid, opts) do
-    GenServer.call(pid, {:command, opts}, 1000)
+    GenServer.call(pid, {:command, opts})
   end
 
   def handle_call({:command, opts}, from, %{queue: queue} = state) do
@@ -32,7 +32,7 @@ defmodule Morphy.Worker do
 
     data = << handler :: unsigned-integer-size(32), sn :: unsigned-integer-size(16), ss :: unsigned-integer-size(16), qlength :: unsigned-integer-size(32), q :: binary >>
 
-    case :gen_tcp.connect(state.host, state.port, [:binary, active: :once]) do
+    case :gen_tcp.connect(state.host, state.port, [:binary, active: true]) do
 
       {:ok, socket} ->
 
@@ -57,7 +57,7 @@ defmodule Morphy.Worker do
    end
 
    def handle_info(:timeout, state) do
-      {:noreply, state, 1000}
+      {:noreply, state, 2000}
    end
 
    def handle_info(_, state), do: {:noreply, state} #handle all unmatched responses
