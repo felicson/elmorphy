@@ -35,7 +35,7 @@ defmodule Morphy do
     get_id(string, @default_opts)
   end
   def get_id(string, opts) do
-    query(string, opts)|>Enum.filter_map(fn (i) -> i end, &mapper/1)
+    query(string, opts)|> filter
   end
 
   def wordforms(string) do
@@ -44,6 +44,14 @@ defmodule Morphy do
 
   def prepare_string(str) do
     String.downcase(str)
+  end
+
+  defp filter(nil) do
+    []
+  end
+
+  defp filter(set) do
+    set|>Enum.filter_map(fn (i) -> i end, &mapper/1)
   end
 
   defp mapper(x) do

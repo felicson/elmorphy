@@ -40,6 +40,12 @@ defmodule MorphyTest do
     assert resp == [3435371276, 698420522]
   end
 
+  test "get wrong words id" do
+
+    resp = Morphy.get_id("???")
+    assert resp == []
+  end
+
   test "get only words id without souz" do
 
     resp = Morphy.get_id("Большой слон продаю для 12", skip_souz: 1, skip_numbers: 0)
