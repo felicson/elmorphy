@@ -51,7 +51,7 @@ defmodule Morphy do
   end
 
   defp filter(set) do
-    set|>Enum.filter_map(fn (i) -> i end, &mapper/1)
+    set|>Enum.map(&mapper/1)
   end
 
   defp mapper(x) do
