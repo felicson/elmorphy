@@ -32,7 +32,7 @@ defmodule Morphy.Worker do
 
     data = << handler :: unsigned-integer-size(32), sn :: unsigned-integer-size(16), ss :: unsigned-integer-size(16), qlength :: unsigned-integer-size(32), q :: binary >>
 
-    case :gen_tcp.connect(state.host, state.port, [:binary, active: true]) do
+    case :gen_tcp.connect(state.host, state.port, [:binary, active: true, recbuf: 16384]) do
 
       {:ok, socket} ->
 
