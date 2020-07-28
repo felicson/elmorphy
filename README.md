@@ -1,6 +1,7 @@
 # Morphy
 
-**TODO: Add description**
+
+Client for morphology service
 
 ## Installation
 
